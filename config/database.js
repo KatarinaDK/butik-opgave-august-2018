@@ -7,6 +7,6 @@ module.exports = {
 		'host': 'localhost',
 		'user': 'root',
 		'password': '',
-		'database': 'eksamens-template'
+		'database': 'butik_opg_aug'
 	})
 };

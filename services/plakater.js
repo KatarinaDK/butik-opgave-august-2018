@@ -7,12 +7,16 @@ Produkt.getAll = () => {
     return new Promise((resolve, reject) => {
         var sql = `
         SELECT
-        plakat.id AS id,
-        plakat.navn AS navn,
-        plakat.url AS url,
-        kategori.navn AS kategori_navn
-        FROM plakat
-        INNER JOIN kategori ON plakat.fk_kategori = kategori.id
+        produkt.id AS id,
+        produkt.navn AS navn,
+        produkt.beskrivelse AS beskrivelse,
+        produkt.pris AS pris,
+        produkt.billede AS billede,
+        kategori.navn AS kategori_navn,
+        brand.navn AS brand_navn
+        FROM produkt
+        INNER JOIN kategori ON produkt.fk_kategori = kategori.id
+        INNER JOIN brand ON produkt.fk_brand = brand.id
         `;
         db.query(sql, (err, result) => {
             if (err) reject(err)
@@ -25,14 +29,14 @@ Produkt.getOne = (id) => {
     return new Promise((resolve, reject) => {
         var sql = `
             SELECT
-                plakat.id AS id,
-                plakat.navn AS navn,
-                plakat.url AS url,
-                plakat.fk_kategori AS kategori_id,
+                produkt.id AS id,
+                produkt.navn AS navn,
+                produkt.url AS url,
+                produkt.fk_kategori AS kategori_id,
                 kategori.navn AS kategori_navn
-            FROM plakat
-            INNER JOIN kategori ON plakat.fk_kategori = kategori.id
-            WHERE plakat.id = ${id}
+            FROM produkt
+            INNER JOIN kategori ON produkt.fk_kategori = kategori.id
+            WHERE produkt.id = ${id}
             `;
         db.query(sql, (err, result) => {
             if (err) reject(err)
@@ -44,9 +48,9 @@ Produkt.getOne = (id) => {
 Produkt.getAntal = (produktnavn) => {
     return new Promise((resolve, reject) => {
         var sql = `
-            SELECT COUNT(plakat.navn) AS antal
-            FROM plakat
-            WHERE plakat.navn = '${produktnavn}'
+            SELECT COUNT(produkt.navn) AS antal
+            FROM produkt
+            WHERE produkt.navn = '${produktnavn}'
             `;
         db.query(sql, (err, result) => {
             if (err) reject(err)
@@ -54,12 +58,12 @@ Produkt.getAntal = (produktnavn) => {
         });
     });
 };
-// HENTER ALLE PLAKATER FRA DB OG TÆLLER HVOR MANGE DER ER
+// HENTER ALLE produktER FRA DB OG TÆLLER HVOR MANGE DER ER
 Produkt.getProduktAntal = () => {
     return new Promise((resolve, reject) => {
         var sql = `
-            SELECT COUNT(plakat.id) AS antal
-            FROM plakat
+            SELECT COUNT(produkt.id) AS antal
+            FROM produkt
             `;
         db.query(sql, (err, result) => {
             if (err) reject(err)
@@ -71,18 +75,18 @@ Produkt.getProduktAntal = () => {
 Produkt.getFindResultat = (find_tekst) => {
     return new Promise((resolve, reject) => {
 
-        // ::TODO - FÅ PLAKATER VIST I SØGERESULTATET
+        // ::TODO - FÅ produktER VIST I SØGERESULTATET
         // var find_tekst = req.params.find_tekst;
 
         var sql = `
                 SELECT
-                    plakat.id AS id,
-                    plakat.navn AS navn,
-                    plakat.url AS url,
+                    produkt.id AS id,
+                    produkt.navn AS navn,
+                    produkt.url AS url,
                     kategori.navn AS kategori_navn
-                FROM plakat
-                INNER JOIN kategori ON plakat.fk_kategori = kategori.id
-                WHERE plakat.navn LIKE '%${find_tekst}%' ORDER BY plakat.navn ASC
+                FROM produkt
+                INNER JOIN kategori ON produkt.fk_kategori = kategori.id
+                WHERE produkt.navn LIKE '%${find_tekst}%' ORDER BY produkt.navn ASC
                 `;
         db.query(sql, (err, result) => {
             if (err) reject(err)
@@ -95,11 +99,11 @@ Produkt.createOne = (produktnavn, kategoriId, produktbillede) => {
     // console.log(kategoriId);
     return new Promise(async (resolve, reject) => {
         var sql = `
-                INSERT INTO plakat
+                INSERT INTO produkt
                 SET
-                    plakat.navn = ?, 
-                    plakat.fk_kategori = ?, 
-                    plakat.url = ?
+                    produkt.navn = ?, 
+                    produkt.fk_kategori = ?, 
+                    produkt.url = ?
             `;
         db.execute(sql, [ produktnavn, kategoriId, produktbillede ], (err, result) => {
             if (err) reject(err);
@@ -113,20 +117,20 @@ Produkt.updateOne = (id, produktnavn, kategoriId, produktbillede) => {
 
         var prepareStatement = [ produktnavn, kategoriId, produktbillede, id ];
         var sql = `
-                UPDATE plakat
+                UPDATE produkt
                 SET
-                    plakat.navn = ?, 
-                    plakat.fk_kategori = ?, 
-                    plakat.url = ?
+                    produkt.navn = ?, 
+                    produkt.fk_kategori = ?, 
+                    produkt.url = ?
                 WHERE id = ?
             `;
         if (produktbillede == "") {
             prepareStatement = [ produktnavn, kategoriId, id ];
             sql = `
-                UPDATE plakat
+                UPDATE produkt
                 SET
-                    plakat.navn = ?, 
-                    plakat.fk_kategori = ?
+                    produkt.navn = ?, 
+                    produkt.fk_kategori = ?
                 WHERE id = ?
             `;
 
@@ -145,7 +149,7 @@ Produkt.updateOne = (id, produktnavn, kategoriId, produktbillede) => {
 Produkt.deleteOne = (id) => {
     return new Promise((resolve, reject) => {
         var sql = `
-                DELETE FROM plakat WHERE id = ${id}
+                DELETE FROM produkt WHERE id = ${id}
             `;
         db.execute(sql, (err, result) => {
             if (err) reject(err);
