@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="da">
+
+<head>
+    <% include ../partials/template/head.ejs %>
+        <!-- Admin css -->
+        <link rel='stylesheet' href='/stylesheets/admin.css' />
+        <!-- <link rel="stylesheet" href="style4.css"> -->
+</head>
+
+<body>
+    <% include ../partials/template/header-admin.ejs %>
+        <div class="wrapper">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>
+                        <span class="nav-profile-img">
+                            <img src="/images/header-logo.png" alt="image" style="height: 20px;">
+                        </span> Adminpanel</h3>
+                    <strong>
+                        <span class="nav-profile-img">
+                            <img src="/images/header-logo.png" alt="image" style="height: 20px;">
+                        </span>
+                    </strong>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <li class="active">
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <i class="fas fa-home"></i>
+                            Admin
+                        </a>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                            <li>
+                                <a href="/admin">Forside</a>
+                            </li>
+                            <li>
+                                <a href="#">Om</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#produktSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <i class="fas fa-newspaper"></i>
+                            Produkter
+                        </a>
+                        <ul class="collapse list-unstyled" id="produktSubmenu">
+                            <li>
+                                <a href="/admin/produkter/getAll">Oversigt</a>
+                            </li>
+                            <li>
+                                <a href="/admin/produkter/createOne">Tilføj nyt</a>
+                            </li>
+                            <li>
+                                <a href="#">Kategorier</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#medierSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <i class="fas fa-images"></i>
+                            Billeder
+                        </a>
+                        <ul class="collapse list-unstyled" id="medierSubmenu">
+                            <li>
+                                <a href="#">Bibliotek</a>
+                            </li>
+                            <li>
+                                <a href="#">Tilføj nyt</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#siderSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <i class="fas fa-copy"></i>
+                            Sider
+                        </a>
+                        <ul class="collapse list-unstyled" id="siderSubmenu">
+                            <li>
+                                <a href="#">Oversigt</a>
+                            </li>
+                            <li>
+                                <a href="#">Tilføj ny</a>
+                            </li>
+                            <li>
+                                <a href="#">Page 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Page 2</a>
+                            </li>
+                            <li>
+                                <a href="#">Page 3</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#kontaktSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <i class="fas fa-paper-plane"></i>
+                            Kontakt
+                        </a>
+                        <ul class="collapse list-unstyled" id="kontaktSubmenu">
+                            <li>
+                                <a href="#">Kontakt</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#brugereSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <i class="fas fa-user"></i>
+                            Brugere
+                        </a>
+                        <ul class="collapse list-unstyled" id="brugereSubmenu">
+                            <li>
+                                <a href="#">Oversigt</a>
+                            </li>
+                            <li>
+                                <a href="#">Tilføj ny</a>
+                            </li>
+                            <li>
+                                <a href="#">Min profil</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/logout">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Log ud
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Page Content  -->
+            <div id="content">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span> Sidebar</span>
+                    </button>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>
+                                <%= pageTitle %>
+                            </h1>
+                            <p>Her kan du oprette et nyt produkt.</p>
+                        </div>
+                        <div class="panel panel-default col-md-12">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">Opret produkt</h2>
+                            </div>
+                            <div class="panel-body">
+                                <form id="opretProduktForm" method="post" action="/admin/produkter/createOne">
+                                    <div class="form-group">
+                                        <label for="inputProduktnavn">Produktnavn</label>
+                                        <input required type="text" class="form-control" id="inputProduktnavn" name="produktnavn" placeholder="Produktnavn">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputKategorinavn">Kategori</label>
+                                        <select required class="form-control" id="inputKategorinavn" name="kategorinavn">
+                                            <option value="">Vælg Kategori</option>
+                                            <% kategorier.forEach(function(plakat) { %>
+                                                <option value="<%= plakat.kategori_id %>"><%= plakat.kategori_navn %></option>
+                                            <% }); %>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputProduktbilledeFile">Produktbillede</label>
+                                        </br>
+                                        <input required type="file" id="inputProduktbilledeFile" name="produktbillede">
+                                    </div>
+                                    <button id="opretKnap" class="btn btn-default" type="submit" name="opretKnap" value="Opret">Opret</button>
+                                    <div>
+                                        <p id="formMessage"><%= message %></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <% include ../partials/template/scripts.ejs %>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#sidebarCollapse').on('click', function () {
+                        $('#sidebar').toggleClass('active');
+                    });
+                });
+            </script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<div id="aside-content" class="col-xs-12">
+
+    <h3>NYHEDSBREV</h3>
+
+    <p>Tilmeld dig vores nyhedsbrev og vær den første til at se kommende arrangementer og tilbud</p>
+
+    <form id="formId" role="form" action="" onSubmit="return formular(this);">
+        <div class="form-group">
+            <label for="navn">Fornavn:</label>
+            <input id="navn" class="form-control input-lg" type="text" name="navn" placeholder="Skriv dit navn">
+            <small id="navnHelp" class="form-text text-muted"></small>
+        </div>
+        <div class="form-group">
+            <label for="eMail">Mail:</label>
+            <input id="eMail" class="form-control input-lg" type="email" name="mail" placeholder="Skriv din mail adresse">
+            <small id="emailHelp" class="form-text text-muted"></small>
+        </div>
+        <button id="btn-nyhedsbrev" class="btn btn-default btn-lg" type="submit" name="sendKnap" value="Send">Tilmeld</button>
+    </form>
+    <div id="formBesked"></div>
+</div>

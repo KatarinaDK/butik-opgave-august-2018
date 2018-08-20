@@ -1,0 +1,18 @@
+<div class="row">
+    <% produkter.forEach(function(plakat) { %>
+        <div class="card col-md-3">
+            <img class="card-img-top" src="/images/plakater/<%= plakat.kategori_navn + '/' + plakat.url %>" alt="<%= plakat.navn %>">
+            <div class="card-body">
+                <div class="sammeHojde">
+                    <h5 class="card-title">
+                        <%=plakat.navn%>
+                    </h5>
+                    <p class="card-text text-uppercase">kategori /
+                        <%=plakat.kategori_navn%>
+                    </p>
+                </div>
+                <a href="/produkt/<%= plakat.id %>" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        <% }); %>
+</div>

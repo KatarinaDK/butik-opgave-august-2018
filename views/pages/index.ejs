@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="da">
+
+<head>
+    <% include ../partials/template/head.ejs %>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <% include ../partials/template/header-admin.ejs %>
+            <% include ../partials/template/header.ejs %>
+    </div>
+
+    <div class="container">
+        <h1>
+            <%= pageTitle %>
+        </h1>
+        <% include ../partials/content/cards.ejs %>
+    </div>
+
+    <div class="container-fluid">
+        <% include ../partials/template/footer.ejs %>
+    </div>
+</body>
+<!-- Søge funktion -->
+<% include ../partials/template/scripts.ejs %>
+
+<!-- <script src="/javascripts/find.js"></script> -->
+    <script type="text/javascript">
+        setTimeout(function () {
+            equalColumns("sammeHojde");
+            window.addEventListener("resize", function () { equalColumnsNy("sammeHojde") }, true);
+
+        }, 50);
+    </script>
+
+</html>

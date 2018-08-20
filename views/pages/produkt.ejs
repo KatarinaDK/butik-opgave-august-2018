@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="da">
+
+<head>
+    <% include ../partials/template/head.ejs %>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <% include ../partials/template/header-admin.ejs %>
+            <% include ../partials/template/header.ejs %>
+    </div>
+
+    <div class="container"> 
+        <h1>
+            <%= pageTitle %>
+        </h1>
+        <div class="row">
+                <% for(let i = 0; i < produkt.length; i++) { %>
+                <div class=" col-md-3">
+                    <img src="/images/plakater/<%= produkt[i].kategori_navn + '/' + produkt[i].url %>" alt="<%= produkt[i].navn %>">
+                    <div class="-body">
+                        <h5>
+                            <%= produkt[i].navn %>
+                        </h5>
+                        <p class="text-uppercase">kategori /
+                            <%= produkt[i].kategori_navn %>
+                        </p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+                <%}%>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <% include ../partials/template/footer.ejs %>
+    </div>
+</body>
+<% include ../partials/template/scripts.ejs %>
+
+<!-- Søge funktion -->
+<!-- <script src="/javascripts/find.js"></script> -->
+</html>
