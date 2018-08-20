@@ -4,13 +4,13 @@
 // Kalder bl.a. funktionen authenticate - vil ikke kunne gå videre medmindre der retuneres true - funktionen vil derfor ikke blive udført
 
 var authenticate = require('../middleware/authenticate');
-var plakater = require('../services/plakater');
+var produkt = require('../services/produkt');
 
 module.exports = (app) => {
-  app.get('/admin', authenticate, async (req, res, next) => { 
+  app.get('/admin', authenticate, async (req, res, next) => {
     // console.log(req.session);
     try {
-      const produkter = await plakater.getProduktAntal();
+      const produkter = await produkt.getProduktAntal();
       console.log(produkter);
       let antal = produkter[ 0 ].antal;
       console.log(antal);

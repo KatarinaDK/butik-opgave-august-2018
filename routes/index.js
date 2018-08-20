@@ -1,10 +1,10 @@
-var plakater = require('../services/plakater');
+var produkt = require('../services/produkt');
 
 module.exports = (app) => {
   app.get('/', async (req, res, next) => {
     // console.log(req.session);
     try {
-      const produkterAlle = await plakater.getAll();
+      const produkterAlle = await produkt.getAll();
 
       res.render('pages/index', {
         siteTitle: 'KP',

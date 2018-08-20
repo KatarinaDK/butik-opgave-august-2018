@@ -7,13 +7,13 @@ Produkt.getAll = () => {
     return new Promise((resolve, reject) => {
         var sql = `
         SELECT
-        produkt.id AS id,
-        produkt.navn AS navn,
-        produkt.beskrivelse AS beskrivelse,
-        produkt.pris AS pris,
-        produkt.billede AS billede,
-        kategori.navn AS kategori_navn,
-        brand.navn AS brand_navn
+            produkt.id AS id,
+            produkt.navn AS navn,
+            produkt.beskrivelse AS beskrivelse,
+            produkt.pris AS pris,
+            produkt.billede AS billede,
+            kategori.navn AS kategori_navn,
+            brand.navn AS brand_navn
         FROM produkt
         INNER JOIN kategori ON produkt.fk_kategori = kategori.id
         INNER JOIN brand ON produkt.fk_brand = brand.id
@@ -23,7 +23,7 @@ Produkt.getAll = () => {
             resolve(result);
         });
     });
-};
+}; 
 //READ - VISER ET PRODUKT (BRUGES PÅ SIDEN ADMIN/PRODUKTERUPDATEONE)
 Produkt.getOne = (id) => {
     return new Promise((resolve, reject) => {
@@ -31,13 +31,16 @@ Produkt.getOne = (id) => {
             SELECT
                 produkt.id AS id,
                 produkt.navn AS navn,
-                produkt.url AS url,
-                produkt.fk_kategori AS kategori_id,
-                kategori.navn AS kategori_navn
+                produkt.beskrivelse AS beskrivelse,
+                produkt.pris AS pris,
+                produkt.billede AS billede,
+                kategori.navn AS kategori_navn,
+                brand.navn AS brand_navn
             FROM produkt
             INNER JOIN kategori ON produkt.fk_kategori = kategori.id
+            INNER JOIN brand ON produkt.fk_brand = brand.id
             WHERE produkt.id = ${id}
-            `;
+        `;
         db.query(sql, (err, result) => {
             if (err) reject(err)
             resolve(result);

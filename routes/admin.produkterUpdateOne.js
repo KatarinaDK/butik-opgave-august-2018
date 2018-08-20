@@ -1,11 +1,11 @@
 var authenticate = require('../middleware/authenticate');
 var kategorier = require('../services/kategori');
-var plakater = require('../services/plakater');
+var produkt = require('../services/produkt');
 
 module.exports = (app) => {
   app.get('/admin/produkter/updateOne/:id', authenticate, async (req, res) => {
     try {
-      const produkter = await plakater.getOne(req.params.id);
+      const produkter = await produkt.getOne(req.params.id);
       const produktKategori = await kategorier.getAll();
 
       res.render('admin/produkterUpdateOne', {
@@ -23,7 +23,7 @@ module.exports = (app) => {
 
   app.post('/admin/produkter/updateOne/:id', async (req, res) => {
     try {
-      await plakater.updateOne(req.params.id, req.body.produktnavn, req.body.kategorinavn, req.body.produktbillede);
+      await produkt.updateOne(req.params.id, req.body.produktnavn, req.body.kategorinavn, req.body.produktbillede);
       res.redirect('/admin/produkter/getAll');
     }
     catch (e) {

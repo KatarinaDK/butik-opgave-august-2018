@@ -1,12 +1,12 @@
 var authenticate = require('../middleware/authenticate');
-var plakater = require('../services/plakater');
+var produkt = require('../services/produkt');
 
 module.exports = (app) => {
   // RENDERING AF SIDEN
   app.get('/admin/produkter/getAll', authenticate, async (req, res) => {
     // console.log(req.session);
     try {
-      const produkterAlle = await plakater.getAll();
+      const produkterAlle = await produkt.getAll();
 
       res.render('admin/produkterGetAll', {
         siteTitle: 'KP',
@@ -24,7 +24,7 @@ module.exports = (app) => {
     const produktId = req.params.id;
 
     try {
-      await plakater.deleteOne(produktId);
+      await produkt.deleteOne(produktId);
       res.redirect('/admin/produkter/getAll');
     }
     catch (e) {
