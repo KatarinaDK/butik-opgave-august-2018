@@ -68,6 +68,6 @@ app.use(function(err, req, res, next) {
 
 
 
-const port = 3000;
+const port = 3001;
 console.log(`Serveren kører på http://localhost:${port}`);
 app.listen(port);

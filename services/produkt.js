@@ -6,17 +6,17 @@ const Produkt = () => { };
 Produkt.getAll = () => {
     return new Promise((resolve, reject) => {
         var sql = `
-        SELECT
-            produkt.id AS id,
-            produkt.navn AS navn,
-            produkt.beskrivelse AS beskrivelse,
-            produkt.pris AS pris,
-            produkt.billede AS billede,
-            kategori.navn AS kategori_navn,
-            brand.navn AS brand_navn
-        FROM produkt
-        INNER JOIN kategori ON produkt.fk_kategori = kategori.id
-        INNER JOIN brand ON produkt.fk_brand = brand.id
+            SELECT
+                produkt.id AS id,
+                produkt.navn AS navn,
+                produkt.beskrivelse AS beskrivelse,
+                produkt.pris AS pris,
+                produkt.billede AS billede,
+                kategori.navn AS kategori_navn,
+                brand.navn AS brand_navn
+            FROM produkt
+            INNER JOIN kategori ON produkt.fk_kategori = kategori.id
+            INNER JOIN brand ON produkt.fk_brand = brand.id
         `;
         db.query(sql, (err, result) => {
             if (err) reject(err)
@@ -34,6 +34,7 @@ Produkt.getOne = (id) => {
                 produkt.beskrivelse AS beskrivelse,
                 produkt.pris AS pris,
                 produkt.billede AS billede,
+                kategori.id AS kategori_id,
                 kategori.navn AS kategori_navn,
                 brand.navn AS brand_navn
             FROM produkt
@@ -54,7 +55,7 @@ Produkt.getAntal = (produktnavn) => {
             SELECT COUNT(produkt.navn) AS antal
             FROM produkt
             WHERE produkt.navn = '${produktnavn}'
-            `;
+        `;
         db.query(sql, (err, result) => {
             if (err) reject(err)
             resolve(result);
@@ -85,7 +86,7 @@ Produkt.getFindResultat = (find_tekst) => {
                 SELECT
                     produkt.id AS id,
                     produkt.navn AS navn,
-                    produkt.url AS url,
+                    produkt.billede AS billede,
                     kategori.navn AS kategori_navn
                 FROM produkt
                 INNER JOIN kategori ON produkt.fk_kategori = kategori.id
@@ -98,17 +99,20 @@ Produkt.getFindResultat = (find_tekst) => {
     });
 };
 // CREATE - OPRETTER ET PRODUKT OG INDSÆTTER I DB (BRUGES PÅ SIDEN ADMIN/PRODUKTERCREATEONE)
-Produkt.createOne = (produktnavn, kategoriId, produktbillede) => {
+Produkt.createOne = (produktnavn, produktbeskrivelse, produktpris, produktbillede, kategoriId, brandId) => {
     // console.log(kategoriId);
     return new Promise(async (resolve, reject) => {
         var sql = `
                 INSERT INTO produkt
                 SET
-                    produkt.navn = ?, 
-                    produkt.fk_kategori = ?, 
-                    produkt.url = ?
+                produkt.navn = ?,
+                produkt.beskrivelse = ?,
+                produkt.pris = ?,
+                produkt.billede = ?,
+                produkt.fk_kategori = ?,               
+                produkt.fk_brand = ?
             `;
-        db.execute(sql, [ produktnavn, kategoriId, produktbillede ], (err, result) => {
+        db.execute(sql, [ produktnavn, produktbeskrivelse, produktpris, produktbillede, kategoriId, brandId ], (err, result) => {
             if (err) reject(err);
             resolve(result);
         });
@@ -124,7 +128,7 @@ Produkt.updateOne = (id, produktnavn, kategoriId, produktbillede) => {
                 SET
                     produkt.navn = ?, 
                     produkt.fk_kategori = ?, 
-                    produkt.url = ?
+                    produkt.billede = ?
                 WHERE id = ?
             `;
         if (produktbillede == "") {

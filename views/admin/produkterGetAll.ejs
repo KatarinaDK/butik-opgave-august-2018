@@ -162,23 +162,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% produkter.forEach(function(plakat) { %>
+                                        <% produkter.forEach(function(produkt) { %>
                                             <tr>
                                                 <th scope="row">
-                                                    <img class="img-responsive" src="/images/produkt/<%= plakat.kategori_navn + '/' + plakat.url %>" alt="<%= plakat.navn %>"
+                                                    <img class="img-responsive" src="/images/<%= produkt.kategori_navn + '/' + produkt.billede %>" alt="<%= produkt.navn %>"
                                                         style="height:20px">
                                                 </th>
                                                 <td>
-                                                    <%=plakat.navn%>
+                                                    <%=produkt.navn%>
                                                 </td>
                                                 <td class="text-capitalize">
-                                                    <%=plakat.kategori_navn%>
+                                                    <%=produkt.kategori_navn%>
                                                 </td>
                                                 <td>
-                                                    <a class="produkt-table-link" href="/admin/produkter/delete/<%= plakat.id %>" onclick="return confirmAction('Er du sikker på du vil slette <%=plakat.navn%>?')">
+                                                    <a class="produkt-table-link" href="/admin/produkter/delete/<%= produkt.id %>" onclick="return confirmAction('Er du sikker på du vil slette <%=produkt.navn%>?')">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </a>
-                                                    <a class="produkt-table-link" href="/admin/produkter/updateOne/<%= plakat.id %>">
+                                                    <a class="produkt-table-link" href="/admin/produkter/updateOne/<%= produkt.id %>">
                                                         <i class="fas fa-edit"></i>
                                                     </a>
                                                 </td>

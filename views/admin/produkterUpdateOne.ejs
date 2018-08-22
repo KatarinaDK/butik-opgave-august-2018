@@ -162,6 +162,8 @@
                                         <label for="inputKategorinavn">Kategori</label>
                                         <select class="form-control" id="inputKategorinavn" name="kategorinavn">
                                             <option>Vælg Kategori</option>
+
+
                                             <% kategorier.forEach(function(kategori) { 
                                                 if (kategori.kategori_id == produkt.kategori_id) { %>
                                                     <option value="<%= kategori.kategori_id %>" selected><%= kategori.kategori_navn %></option>
@@ -169,6 +171,8 @@
                                                     <option value="<%= kategori.kategori_id %>"><%= kategori.kategori_navn %></option>
                                                 <% } %>
                                             <% }); %>
+
+                                            
                                         </select>
                                     </div>
                                     <div class="form-group">

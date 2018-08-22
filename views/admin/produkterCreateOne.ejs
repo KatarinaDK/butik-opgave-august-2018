@@ -158,19 +158,37 @@
                                         <input required type="text" class="form-control" id="inputProduktnavn" name="produktnavn" placeholder="Produktnavn">
                                     </div>
                                     <div class="form-group">
+                                        <label for="inputProduktbeskrivelse">Produktbeskrivelse</label>
+                                        <input required type="text" class="form-control" id="inputProduktbeskrivelse" name="produktbeskrivelse" placeholder="Produktbeskrivelse">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputProduktpris">Produktpris</label>
+                                        <input required type="number" class="form-control" id="inputProduktpris" name="produktpris" placeholder="Produktpris">
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="inputProduktbilledeFile">Produktbillede</label>
+                                            <br>
+                                            <input required type="file" id="inputProduktbilledeFile" name="produktbillede">
+                                        </div>
+                                    <div class="form-group">
                                         <label for="inputKategorinavn">Kategori</label>
-                                        <select required class="form-control" id="inputKategorinavn" name="kategorinavn">
+                                        <select required class="form-control" id="inputKategorinavn" name="kategoriId">
                                             <option value="">Vælg Kategori</option>
-                                            <% kategorier.forEach(function(plakat) { %>
-                                                <option value="<%= plakat.kategori_id %>"><%= plakat.kategori_navn %></option>
+                                            <% kategorier.forEach(function(kategori) { %>
+                                                <option value="<%= kategori.kategori_id %>"><%= kategori.kategori_navn %></option>
                                             <% }); %>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputProduktbilledeFile">Produktbillede</label>
-                                        </br>
-                                        <input required type="file" id="inputProduktbilledeFile" name="produktbillede">
+                                        <label for="inputBrandnavn">Brand</label>
+                                        <select required class="form-control" id="inputBrandnavn" name="brandId">
+                                            <option value="">Vælg Brand</option>
+                                            <% brands.forEach(function(brand) { %>
+                                                <option value="<%= brand.brand_id %>"><%= brand.brand_navn %></option>
+                                            <% }); %>
+                                        </select>
                                     </div>
+                                    
                                     <button id="opretKnap" class="btn btn-default" type="submit" name="opretKnap" value="Opret">Opret</button>
                                     <div>
                                         <p id="formMessage"><%= message %></p>
