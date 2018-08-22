@@ -78,3 +78,8 @@ a:hover {
 h1 {
   line-height: 2em;
 }
+
+
+.attention {
+  color: crimson !important;
+}
